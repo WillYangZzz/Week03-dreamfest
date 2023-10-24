@@ -33,3 +33,10 @@ export async function getEventsByDay(day: string) {
       'l.name as locationName'
     )) as EventWithLocation[]
 }
+
+export async function getLocationById(id: number) {
+  return (await db('locations as l')
+    .select('l.id', 'l.name', 'l.description')
+    .where('l.id', id)
+    .first()) as Location
+}
