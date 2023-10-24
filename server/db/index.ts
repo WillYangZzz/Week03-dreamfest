@@ -12,6 +12,7 @@ export const connection = knex(config)
 
 export async function getAllLocations() {
   // TODO: use knex to get the real location data from the database
+  return await connection('locations').select()
 }
 
 // TODO: write some more database functions
