@@ -2,6 +2,7 @@ import knexFile from './knexfile.js'
 import knex from 'knex'
 import type { Location, LocationData } from '../../models/Location.ts'
 import type { Event, EventData, EventWithLocation } from '../../models/Event.ts'
+// import * as db from '../index.ts'
 
 type Environment = 'production' | 'test' | 'development'
 
@@ -12,6 +13,9 @@ export const connection = knex(config)
 
 export async function getAllLocations() {
   // TODO: use knex to get the real location data from the database
+  return await connection('locations').select('*')
 }
+
+getAllLocations()
 
 // TODO: write some more database functions
