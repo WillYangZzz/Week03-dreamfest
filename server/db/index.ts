@@ -15,7 +15,7 @@ export async function getAllLocations() {
   return await db('locations').select()
 }
 
-export async function getEventDetails(day) {
+export async function getEventDetails(day: string) {
   return await db('events')
     .join('locations', 'locations.id', 'events.location_id')
     .where('events.day', day)
@@ -29,15 +29,6 @@ export async function getEventDetails(day) {
     )
 }
 
-// events: [
-//     {
-//       id: 1,
-//       day: 'friday',
-//       time: '2pm - 3pm',
-//       eventName: 'Slushie Apocalypse I',
-//       description:
-//         'This is totally a description of this really awesome event that will be taking place during this festival at the TangleStage. Be sure to not miss the free slushies cause they are rad!',
-//       locationName: 'TangleStage',
-//     },
-
-// TODO: write some more database functions
+export async function getLocationById(id: number) {
+  return await db('locations').where('locations.id', id).first()
+}
