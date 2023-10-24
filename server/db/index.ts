@@ -39,5 +39,9 @@ export async function getLocationById(id: number) {
 }
 
 export async function updateLocation(location: Location) {
-  return await db('locations').where('id', location.id).update(location)
+  return await db('locations as l').where('l.id', location.id).update(location)
+}
+
+export async function addNewEvent(newEvent: object) {
+  return db('events').insert(newEvent)
 }
