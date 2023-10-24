@@ -35,8 +35,9 @@ export async function getEventsByDay(day: string) {
 }
 
 export async function getLocationById(id: number) {
-  return (await db('locations as l')
-    .select('l.id', 'l.name', 'l.description')
-    .where('l.id', id)
-    .first()) as Location
+  return (await db('locations as l').where('l.id', id).first()) as Location
+}
+
+export async function updateLocation(location: Location) {
+  return await db('locations').where('id', location.id).update(location)
 }
