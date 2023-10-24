@@ -10,7 +10,8 @@
     "dev": "tsx watch server/index.ts",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "test": "vitest",
-    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
+    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'",
+    "tsx": "tsx"
   },
   "author": "Dev Academy Aotearoa",
   "license": "ISC",
@@ -47,7 +48,7 @@
     "jsdom": "^22.1.0",
     "nodemon": "^2.0.15",
     "prettier": "2.6.1",
-    "tsx": "^3.12.7",
+    "tsx": "^3.14.0",
     "vitest": "^0.34.4"
   },
   "prettier": {

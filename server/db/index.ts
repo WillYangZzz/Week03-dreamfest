@@ -8,10 +8,19 @@ type Environment = 'production' | 'test' | 'development'
 const environment = (process.env.NODE_ENV || 'development') as Environment
 const config = knexFile[environment]
 
-export const connection = knex(config)
+export const db = knex(config)
 
-export async function getAllLocations() {
-  // TODO: use knex to get the real location data from the database
+interface locations {
+  id: number
+  name: string
+  description: string
 }
 
+export async function getAllLocations() {
+  const value = await db('locations').select('*')
+  return value
+  // TODO: use knex to get the real location data from the database
+}
 // TODO: write some more database functions
+
+getAllLocations()
