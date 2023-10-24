@@ -16,3 +16,17 @@ export async function getAllLocations() {
 }
 
 // TODO: write some more database functions
+
+export async function getEventByDay(day: string) {
+  return await connection('events')
+    .join('locations', 'events.location_id', 'locations.id')
+    .where('events.day', day)
+    .select(
+      'events.id as id',
+      'events.day as day',
+      'events.time as time',
+      'events.name as eventName',
+      'events.description as description',
+      'locations.name as locationName'
+    )
+}
