@@ -21,19 +21,18 @@ router.get('/:id/edit', async (req, res) => {
   // TODO: Get the location based on its id and replace this viewData
   const viewData = await db.getLocationById(id)
 
-  console.log(viewData)
-
   res.render('editLocation', viewData)
 })
 
 // POST /locations/edit
-router.post('/edit', (req, res) => {
+router.post('/edit', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
   const { id, name, description } = req.body
 
-  // console.log(req.body)
+  const location = req.body
 
   // TODO: Update the location in the database based on its id
+  await db.editLocation(location)
 
   res.redirect('/locations')
 })
