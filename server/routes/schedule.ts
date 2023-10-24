@@ -36,7 +36,7 @@ router.get('/:day', async (req, res) => {
   //     },
   //   ],
   // }
-  const events = await db.getEventDetails()
+  const events = await db.getEventDetails(day)
 
   const viewData = {
     day: day,

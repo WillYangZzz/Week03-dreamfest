@@ -15,9 +15,10 @@ export async function getAllLocations() {
   return await db('locations').select()
 }
 
-export async function getEventDetails() {
+export async function getEventDetails(day) {
   return await db('events')
     .join('locations', 'locations.id', 'events.location_id')
+    .where('events.day', day)
     .select(
       'events.id as id',
       'day',
