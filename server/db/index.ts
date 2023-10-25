@@ -24,11 +24,11 @@ export async function getAllLocations() {
 // TODO: write some more database functions
 
 export async function getLocationById(id: number) {
-  return (await db('locations').where('id', id).select()) as LocationData[]
+  return await db('locations').where('id', id).select().first()
 }
 
 export async function getEventsByDay(day: string) {
-  const events = await db('events')
+  return await db('events')
     .join('locations', 'locations.id', 'events.location_id')
     .where('day', day)
     .select(
@@ -39,7 +39,4 @@ export async function getEventsByDay(day: string) {
       'events.description',
       'locations.name as locationName'
     )
-  console.log(events)
 }
-
-getEventsByDay('friday')
