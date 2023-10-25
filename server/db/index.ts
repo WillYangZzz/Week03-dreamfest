@@ -18,3 +18,13 @@ export async function getAllLocations() {
 }
 getAllLocations()
 // TODO: write some more database functions
+export async function getEventsByDay(day : string){
+  const eventDay = await db('events')
+  .join('locations', 'location_id', 'locations.id')
+  .where("day", day)
+  .select()
+
+  return eventDay 
+  
+}
+getEventsByDay
