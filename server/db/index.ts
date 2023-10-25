@@ -31,3 +31,10 @@ export async function getEventsByDay(day: string) {
       'events.time'
     )
 }
+
+export async function getLocatioById(id: number) {
+  return await db('locations')
+    .where('id', id)
+    .select('locations.id', 'locations.name', 'locations.description')
+    .first()
+}

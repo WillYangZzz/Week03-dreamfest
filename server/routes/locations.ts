@@ -23,23 +23,24 @@ router.get('/', async (req, res) => {
   //   },
   // ]
   const locations = await db.getAllLocations()
-  console.log(locations)
 
   const viewData = { locations }
   res.render('showLocations', viewData)
 })
 
 // GET /locations/4/edit
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async (req, res) => {
   const id = Number(req.params.id)
 
   // TODO: Get the location based on its id and replace this viewData
-  const viewData = {
-    id: id,
-    name: 'TangleStage',
-    description:
-      'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
-  }
+  // const viewData = {
+  //   id: id,
+  //   name: 'TangleStage',
+  //   description:
+  //     'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
+  // }
+  const viewData = await db.getLocatioById(id)
+  console.log(viewData)
 
   res.render('editLocation', viewData)
 })
