@@ -27,6 +27,12 @@ export async function getLocationById(id: number) {
   return await db('locations').where('id', id).select().first()
 }
 
+export async function updateLocation(updatedLocation: Location) {
+  await db('locations')
+    .where('locations.id', updatedLocation.id)
+    .update(updatedLocation)
+}
+
 export async function getEventsByDay(day: string) {
   return await db('events')
     .join('locations', 'locations.id', 'events.location_id')
