@@ -9,7 +9,6 @@ const environment = (process.env.NODE_ENV || 'development') as Environment
 const config = knexFile[environment]
 
 export const db = knex(config)
-console.log(db)
 
 export async function getAllLocations() {
   // TODO: use knex to get the real location data from the database
@@ -45,4 +44,17 @@ export async function getEventsByDay(day: string) {
       'events.description',
       'locations.name as locationName'
     )
+}
+
+export async function addNewEvent(event: Event) {
+  const { name, description, locationId, day, time } = event
+  const dbEvent = {
+    location_id: locationId,
+    day,
+    time,
+    name,
+    description,
+  }
+
+  return await db('events').insert(dbEvent)
 }

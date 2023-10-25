@@ -7,7 +7,7 @@ const router = express.Router()
 export default router
 
 // GET /events/add/friday
-router.get('/add/:day', (req, res) => {
+router.get('/add/:day', async (req, res) => {
   const day = validateDay(req.params.day)
   const days = eventDays.map((eventDay) => ({
     value: eventDay,
@@ -15,31 +15,23 @@ router.get('/add/:day', (req, res) => {
     selected: eventDay === day ? 'selected' : '',
   }))
 
-  // TODO: Replace this with all of the locations in the database
-  const locations = [
-    {
-      id: 1,
-      name: 'TangleStage',
-    },
-    {
-      id: 2,
-      name: 'Yella Yurt',
-    },
-  ]
+  const locations = await db.getAllLocations()
 
   const viewData = { locations, days, day }
   res.render('addEvent', viewData)
 })
 
 // POST /events/add
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
   // const { name, description, time, locationId } = req.body
   // const day = validateDay(req.body.day)
 
   // TODO: Add the event to the database and then redirect
 
-  const day = 'friday' // TODO: Remove this line
+  const day = validateDay(req.body.day)
+  const newEvent = req.body
+  await db.addNewEvent(newEvent)
 
   res.redirect(`/schedule/${day}`)
 })

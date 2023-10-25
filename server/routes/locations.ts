@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
   const locations = await db.getAllLocations()
 
   const viewData = { locations }
-  console.log(viewData)
 
   res.render('showLocations', viewData)
 })
