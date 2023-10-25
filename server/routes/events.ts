@@ -62,12 +62,15 @@ router.get('/:id/edit', async (req, res) => {
   // The selected property should have a value of
   // either 'selected' or '' based on event.locationId above.
 
-  const allLocations = (await db.getAllLocations()) as Location[]
-  const locations = allLocations.map((location) => ({
-    id: id,
-    selected: location.id === event.locationId ? 'selected' : '',
-    name: location.name,
-  }))
+  const allLocations = await db.getAllLocations()
+  const locations = allLocations.map((location) => {
+    return {
+      id: location.id,
+      name: location.locationName,
+      selected: location.id === event.locationId ? 'selected' : '',
+    }
+  })
+  // selected: location.id === event.locationId ? 'selected' : '',
 
   // This is done for you with an array of days imported from the helpers file
   const days = eventDays.map((eventDay) => ({

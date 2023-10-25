@@ -17,7 +17,7 @@ export async function getAllLocations() {
     'id',
     'name as locationName',
     'description'
-  )) as LocationData[]
+  )) as Location[]
 }
 
 // TODO: write some more database functions
