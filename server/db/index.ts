@@ -47,3 +47,7 @@ export async function updateLocation(id: number, updatedLocation: object) {
 export async function addNewEvent(newEvent: object) {
   return await connection('events').insert(newEvent)
 }
+
+export async function deleteEvent(id: number) {
+  return await connection('events').where('events.id', id).del()
+}
