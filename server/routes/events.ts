@@ -31,22 +31,20 @@ router.post('/add', async (req, res) => {
   const event = req.body
 
   // TODO: Add the event to the database and then redirect
-  // await db.editEvent(event)
-  console.log(event)
-
-  // const day = 'friday' // TODO: Remove this line
+  await db.editEvent(event)
 
   res.redirect(`/schedule/${day}`)
 })
 
 // POST /events/delete
-router.post('/delete', (req, res) => {
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
+router.post('/delete', async (req, res) => {
+  const id = Number(req.body.id)
+  const day = validateDay(req.body.day)
 
   // TODO: Delete the event from the database using its id
 
-  const day = 'friday' // TODO: Remove this line
+  await db.deleteEvent(id)
+  console.log(id)
 
   res.redirect(`/schedule/${day}`)
 })

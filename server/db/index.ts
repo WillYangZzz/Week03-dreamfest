@@ -38,3 +38,18 @@ export async function editLocation(location: Location) {
     .where('locations.id', location.id)
     .update(location)
 }
+
+export async function editEvent(event: Event) {
+  const eventEdit = {
+    location_id: event.locationId,
+    day: event.day,
+    time: event.time,
+    name: event.name,
+    description: event.description,
+  }
+  return await db('events').insert(eventEdit)
+}
+
+export async function deleteEvent(id: number) {
+  return await db('events').where('events.id', id).del()
+}
