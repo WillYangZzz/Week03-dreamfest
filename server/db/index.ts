@@ -42,6 +42,10 @@ export async function getLocationById(id: number) {
 
 export async function updateLocation(updatedLocation: Location) {
   await db('locations')
-    .update(updatedLocation)
+    .update({
+      id: updatedLocation.id,
+      name: updatedLocation.name,
+      description: updatedLocation.description,
+    })
     .where('locations.id', updatedLocation.id)
 }
