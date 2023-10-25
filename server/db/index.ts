@@ -27,7 +27,7 @@ export async function getEventsByDay(day: string) {
 }
 
 export async function getEventById(eventId: number) {
-  return await db('events')
+  return (await db('events')
     .select(
       'id',
       'location_id as locationId',
@@ -37,13 +37,13 @@ export async function getEventById(eventId: number) {
       'description'
     )
     .where('id', eventId)
-    .first()
+    .first()) as Event
 }
 
 export async function updateEvent(updatedEvent: Event) {
   const { id, locationId, day, time, name, description } = updatedEvent
 
-  return db('events')
+  await db('events')
     .where('id', updatedEvent.id)
     .update({ id, location_id: locationId, day, time, name, description })
 }
@@ -58,11 +58,12 @@ export async function addNewEvent(newEvent: EventData) {
     name,
     description,
   }
-  return db('events').insert(snakeNewEvent)
+
+  await db('events').insert(snakeNewEvent)
 }
 
 export async function deleteEvent(eventId: number) {
-  return db('events').where('id', eventId).delete()
+  await db('events').where('id', eventId).delete()
 }
 
 // LOCATIONS
@@ -79,5 +80,5 @@ export async function getLocationById(id: number) {
 }
 
 export async function updateLocation(location: Location) {
-  return await db('locations').where('id', location.id).update(location)
+  await db('locations').where('id', location.id).update(location)
 }
