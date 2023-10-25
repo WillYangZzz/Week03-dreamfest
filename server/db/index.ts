@@ -75,3 +75,7 @@ export async function locationWithoutDescription() {
     'locations.name as name'
   )
 }
+
+export async function editForm(editEvent: Event) {
+  return await db('events').where('id', editEvent.id).update(editEvent)
+}

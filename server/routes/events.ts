@@ -79,16 +79,25 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // POST /events/edit
-router.post('/edit', (req, res) => {
+router.post('/edit', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
-  // const { name, description, time } = req.body
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
-  // const locationId = Number(req.body.locationId)
+  const { name, description, time } = req.body
+  const id = Number(req.body.id)
+  const day = validateDay(req.body.day)
+  const locationId = Number(req.body.locationId)
+
+  const editEvent = {
+    id,
+    location_id: locationId,
+    day,
+    time,
+    name,
+    description,
+  }
+
+  await db.editForm(editEvent)
 
   // TODO: Update the event in the database using the identifiers created above
-
-  const day = 'friday' // TODO: Remove this line
 
   res.redirect(`/schedule/${day}`)
 })
