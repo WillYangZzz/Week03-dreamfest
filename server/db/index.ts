@@ -67,3 +67,11 @@ export async function getEventById(id: number) {
     )
     .first()
 }
+
+export async function locationWithoutDescription() {
+  // TODO: use knex to get the real location data from the database
+  return await db('locations').select(
+    'locations.id as id',
+    'locations.name as name'
+  )
+}

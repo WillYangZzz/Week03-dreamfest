@@ -55,28 +55,17 @@ router.get('/:id/edit', async (req, res) => {
 
   // TODO: Replace event below with the event from the database using its id
   const event = await db.getEventById(id)
-
-  // NOTE: It should have the same shape as this one
-  // const event = {
-  //   id: id,
-  //   locationId: 1,
-  //   day: 'friday',
-  //   time: '2pm - 3pm',
-  //   name: 'Slushie Apocalypse I',
-  //   description:
-  //     'This is totally a description of this really awesome event that will be taking place during this festival at the Yella Yurt. Be sure to not miss the free slushies cause they are rad!',
-  // }
+  const locationID = event.locationId
+  // console.log(locationID)
 
   // TODO: Replace locations below with all of the locations from the database
-  // NOTE: The objects should have the same shape as these.
-  // The selected property should have a value of
-  // either 'selected' or '' based on event.locationId above.
-  const locations = [
-    { id: 1, name: 'TangleStage', selected: '' },
-    { id: 2, name: 'Yella Yurt', selected: 'selected' },
-    { id: 3, name: 'Puffy Paddock', selected: '' },
-    { id: 4, name: 'Kombucha Karavan', selected: '' },
-  ]
+
+  const locationsArray = await db.locationWithoutDescription()
+  const locations = locationsArray.map((location) => {
+    if (locationID == location.id) {
+      return { ...location, selected: 'selected' }
+    } else return { ...location, selected: '' }
+  })
 
   // This is done for you with an array of days imported from the helpers file
   const days = eventDays.map((eventDay) => ({
