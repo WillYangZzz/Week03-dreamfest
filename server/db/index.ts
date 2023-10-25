@@ -49,8 +49,17 @@ export async function updateEvent(updatedEvent: Event) {
     .update({ id, location_id: locationId, day, time, name, description })
 }
 
-export async function addNewEvent(newEvent: object) {
-  return db('events').insert(newEvent)
+export async function addNewEvent(newEvent: EventData) {
+  const { locationId, day, time, name, description } = newEvent
+
+  const snakeNewEvent = {
+    location_id: locationId,
+    day,
+    time,
+    name,
+    description,
+  }
+  return db('events').insert(snakeNewEvent)
 }
 
 export async function deleteEvent(eventId: number) {

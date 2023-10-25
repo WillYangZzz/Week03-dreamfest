@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
   const { name, description, time, locationId } = req.body
   const day = validateDay(req.body.day)
 
-  const newEvent = { location_id: locationId, day, time, name, description }
+  const newEvent = { locationId, day, time, name, description }
   // TODO: Add the event to the database and then redirect
   // const result = await db.addNewEvent(newEvent)
   console.log(newEvent)
