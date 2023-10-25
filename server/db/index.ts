@@ -43,3 +43,13 @@ export async function getLocationById(id: string) {
     .where('locations.id', id)
     .first()
 }
+
+export async function updateLocation(updatedLocation: Location) {
+  return await db('locations')
+    .update({
+      id: updatedLocation.id,
+      name: updatedLocation.name,
+      description: updatedLocation.description,
+    })
+    .where('locations.id', updatedLocation.id)
+}
