@@ -27,7 +27,14 @@ export async function getAllEventsByDay(day: string) {
   const events = await db('events')
     .join('locations', 'location_id', 'locations.id')
     .where('day', day)
-    .select()
+    .select(
+      'events.name as eventName',
+      'events.description',
+      'day',
+      'time',
+      'locations.name as locationName',
+      'events.id as id'
+    )
   return events
 }
 
@@ -56,15 +63,17 @@ interface event {
   locationId: number
   day: string
 }
-export async function addEvent(reqObject: event) {
+export async function addNewEvent(reqObject: event) {
   const { name, description, time, locationId, day } = reqObject
-  return await db('events')
-    .join('locations', 'location_id', 'locations.id')
-    .insert({
-      name: name,
-      description: description,
-      time: time,
-      locationId: locationId,
-      day: day,
-    })
+  await db('events').insert({
+    name: name,
+    description: description,
+    time: time,
+    location_Id: locationId,
+    day: day,
+  })
+}
+
+export async function deleteEventById(id: number) {
+  return await db('events').where('id', id).del()
 }

@@ -35,7 +35,7 @@ router.post('/add', async (req, res) => {
     day: req.body.day,
   }
 
-  await db.addEvent(reqObject)
+  await db.addNewEvent(reqObject)
   // TODO: Add the event to the database and then redirect
 
   // const day = 'friday' // TODO: Remove this line
@@ -44,13 +44,14 @@ router.post('/add', async (req, res) => {
 })
 
 // POST /events/delete
-router.post('/delete', (req, res) => {
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
+router.post('/delete', async (req, res) => {
+  const id = Number(req.body.id)
+  const day = validateDay(req.body.day)
 
+  await db.deleteEventById(id)
   // TODO: Delete the event from the database using its id
 
-  const day = 'friday' // TODO: Remove this line
+  // const day = 'friday' // TODO: Remove this line
 
   res.redirect(`/schedule/${day}`)
 })
@@ -61,6 +62,7 @@ router.get('/:id/edit', (req, res) => {
 
   // TODO: Replace event below with the event from the database using its id
   // NOTE: It should have the same shape as this one
+
   const event = {
     id: id,
     locationId: 1,

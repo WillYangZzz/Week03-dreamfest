@@ -17,6 +17,7 @@ router.get('/:day', async (req, res) => {
   const viewData = {
     day: day,
     events: eventData,
+    // description: eventData,
   }
 
   res.render('showDay', viewData)
