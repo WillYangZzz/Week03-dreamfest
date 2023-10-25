@@ -46,7 +46,7 @@ export async function getEventsByDay(day: string) {
     )
 }
 
-export async function addNewEvent(event: Event) {
+export async function addNewEvent(event: EventData) {
   const { name, description, locationId, day, time } = event
   const dbEvent = {
     location_id: locationId,
@@ -57,4 +57,23 @@ export async function addNewEvent(event: Event) {
   }
 
   return await db('events').insert(dbEvent)
+}
+
+export async function deleteEvent(id: number) {
+  return db('events').where('events.id', id).del()
+}
+
+export async function getEventById(inputId: number) {
+  const event = await db('events').where('events.id', inputId).select().first()
+  const { id, location_id, day, time, name, description } = event
+  const dbEvent = {
+    id,
+    locationId: location_id,
+    day,
+    time,
+    name,
+    description,
+  }
+
+  return dbEvent
 }
