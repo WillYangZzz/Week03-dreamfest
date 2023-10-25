@@ -37,3 +37,9 @@ export async function getLocationById(id: number) {
     .select()
     .first()
 }
+
+export async function updateLocation(id: number, updatedLocation: object) {
+  return await connection('locations')
+    .where('locations.id', id)
+    .update(updatedLocation)
+}

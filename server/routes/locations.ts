@@ -46,11 +46,15 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // POST /locations/edit
-router.post('/edit', (req, res) => {
+router.post('/edit', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
   // const { id, name, description } = req.body
 
   // TODO: Update the location in the database based on its id
+
+  const updatedLocation = req.body
+
+  await db.updateLocation(req.body.id, updatedLocation)
 
   res.redirect('/locations')
 })
