@@ -31,14 +31,15 @@ export async function getAllLocations() {
 
 export async function getDayEvents(day: string) {
   return (await db('events')
-    .where('day', day)
+    .join('locations', 'events.location_id', 'locations.id')
+    .where('events.day', day)
     .select(
-      'id',
-      'location_id',
-      'day',
-      'time',
-      'name',
-      'description'
+      'events.id',
+      'events.day',
+      'events.time',
+      'events.name as eventName',
+      'events.description',
+      'locations.name as locationName'
     )) as EventData[]
 }
 
@@ -54,4 +55,31 @@ export async function updateLocation(updatedLocation: Location) {
     name: updatedLocation.name,
     description: updatedLocation.description,
   })
+}
+// returns an array of objects fo all locations - returns only id and name
+export async function getAllLocationsNameAndIdOnly() {
+  return (await db('locations').select('id', 'name')) as Location[]
+}
+
+interface NewEvent {
+  name: string
+  description: string
+  time: string
+  locationId: number
+  day: string
+}
+export async function addNewEvent(event: NewEvent) {
+  const { name, description, time, locationId, day } = event
+
+  await db('events').insert({
+    name,
+    description,
+    time,
+    day,
+    location_id: locationId,
+  })
+}
+
+export async function deleteEvent(id: number) {
+  await db('events').where('id', id).del()
 }

@@ -7,7 +7,7 @@ const router = express.Router()
 export default router
 
 // GET /events/add/friday
-router.get('/add/:day', (req, res) => {
+router.get('/add/:day', async (req, res) => {
   const day = validateDay(req.params.day)
   const days = eventDays.map((eventDay) => ({
     value: eventDay,
@@ -16,42 +16,44 @@ router.get('/add/:day', (req, res) => {
   }))
 
   // TODO: Replace this with all of the locations in the database
-  const locations = [
-    {
-      id: 1,
-      name: 'TangleStage',
-    },
-    {
-      id: 2,
-      name: 'Yella Yurt',
-    },
-  ]
+  // const locations = [
+  //   {
+  //     id: 1,
+  //     name: 'TangleStage',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Yella Yurt',
+  //   },
+  // ]
 
+  const locations = await db.getAllLocationsNameAndIdOnly() // this line replaces the above location array of objects
   const viewData = { locations, days, day }
   res.render('addEvent', viewData)
 })
 
 // POST /events/add
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
-  // const { name, description, time, locationId } = req.body
-  // const day = validateDay(req.body.day)
+  const event = req.body
+  const day = validateDay(req.body.day)
+  await db.addNewEvent(event)
 
   // TODO: Add the event to the database and then redirect
 
-  const day = 'friday' // TODO: Remove this line
+  // const day = 'friday' // TODO: Remove this line
 
   res.redirect(`/schedule/${day}`)
 })
 
 // POST /events/delete
-router.post('/delete', (req, res) => {
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
-
+router.post('/delete', async (req, res) => {
+  const id = Number(req.body.id)
+  const day = validateDay(req.body.day)
+  await db.deleteEvent(id)
   // TODO: Delete the event from the database using its id
 
-  const day = 'friday' // TODO: Remove this line
+  // const day = 'friday' // TODO: Remove this line
 
   res.redirect(`/schedule/${day}`)
 })
