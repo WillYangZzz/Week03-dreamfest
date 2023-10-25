@@ -45,3 +45,7 @@ export async function updateLocation(location: Location) {
 export async function addNewEvent(newEvent: object) {
   return db('events').insert(newEvent)
 }
+
+export async function deleteEvent(eventId: number) {
+  return db('events').where('id', eventId).delete()
+}
