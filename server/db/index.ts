@@ -43,9 +43,19 @@ export async function getLocationById(id: number) {
 export async function updateLocation(updatedLocation: Location) {
   await db('locations')
     .update({
-      id: updatedLocation.id,
+      id: Number(updatedLocation.id),
       name: updatedLocation.name,
       description: updatedLocation.description,
     })
     .where('locations.id', updatedLocation.id)
+}
+
+export async function addNewEvent(event: EventData) {
+  await db('events').insert({
+    name: event.name,
+    description: event.description,
+    time: event.time,
+    day: event.day,
+    location_id: Number(event.locationId),
+  })
 }

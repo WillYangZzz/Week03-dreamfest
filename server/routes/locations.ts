@@ -32,7 +32,8 @@ router.post('/edit', async (req, res) => {
   // const { id, name, description } = req.body
 
   // TODO: Update the location in the database based on its id
-  db.updateLocation(req.body)
+  // V why is this await not needed??
+  /**await*/ db.updateLocation(req.body)
 
   res.redirect('/locations')
 })
