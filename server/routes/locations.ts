@@ -13,27 +13,32 @@ router.get('/', async (req, res) => {
 })
 
 // GET /locations/4/edit
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async (req, res) => {
   const id = Number(req.params.id)
 
   // TODO: Get the location based on its id and replace this viewData
+
+  const locationData = await db.getLocationDataById(id)
+
   const viewData = {
-    id: id,
-    name: 'TangleStage',
-    description:
-      'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
+    id: locationData.id,
+    name: locationData.name,
+    description: locationData.description,
+    // 'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
   }
 
   res.render('editLocation', viewData)
 })
 
 // POST /locations/edit
-router.post('/edit', (req, res) => {
-  // ASSISTANCE: So you know what's being posted ;)
-  // const { id, name, description } = req.body
-
+router.post('/edit', async (req, res) => {
+  const reqObject = {
+    id: req.body.id,
+    name: req.body.name,
+    description: req.body.description,
+  }
+  const updatedData = await db.updateLocationDetails(reqObject)
   // TODO: Update the location in the database based on its id
-
   res.redirect('/locations')
 })
 
