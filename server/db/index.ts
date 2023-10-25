@@ -28,7 +28,7 @@ export async function getEventsByDay(day: string) {
 }
 
 export async function getEventById(eventId: number) {
-  return await db('events as e')
+  return await db('events')
     .select(
       'id',
       'location_id as locationId',
@@ -37,8 +37,16 @@ export async function getEventById(eventId: number) {
       'name',
       'description'
     )
-    .where('e.id', eventId)
+    .where('id', eventId)
     .first()
+}
+
+export async function updateEvent(updatedEvent: Event) {
+  const { id, locationId, day, time, name, description } = updatedEvent
+
+  return db('events')
+    .where('id', updatedEvent.id)
+    .update({ id, location_id: locationId, day, time, name, description })
 }
 
 export async function addNewEvent(newEvent: object) {
@@ -52,17 +60,17 @@ export async function deleteEvent(eventId: number) {
 // LOCATIONS
 export async function getAllLocations() {
   // TODO: use knex to get the real location data from the database
-  return (await db('locations as l').select(
-    'l.id',
-    'l.name',
-    'l.description'
+  return (await db('locations').select(
+    'id',
+    'name',
+    'description'
   )) as Location[]
 }
 
 export async function getLocationById(id: number) {
-  return (await db('locations as l').where('l.id', id).first()) as Location
+  return (await db('locations').where('id', id).first()) as Location
 }
 
 export async function updateLocation(location: Location) {
-  return await db('locations as l').where('l.id', location.id).update(location)
+  return await db('locations').where('id', location.id).update(location)
 }
