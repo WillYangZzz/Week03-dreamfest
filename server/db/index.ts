@@ -10,14 +10,7 @@ const config = knexFile[environment]
 
 export const db = knex(config)
 
-export async function getAllLocations() {
-  // TODO: use knex to get the real location data from the database
-  return (await db('locations as l').select(
-    'l.id',
-    'l.name',
-    'l.description'
-  )) as Location[]
-}
+// EVENTS
 
 export async function getEventsByDay(day: string) {
   return (await db('events as e')
@@ -34,12 +27,18 @@ export async function getEventsByDay(day: string) {
     )) as EventWithLocation[]
 }
 
-export async function getLocationById(id: number) {
-  return (await db('locations as l').where('l.id', id).first()) as Location
-}
-
-export async function updateLocation(location: Location) {
-  return await db('locations as l').where('l.id', location.id).update(location)
+export async function getEventById(eventId: number) {
+  return await db('events as e')
+    .select(
+      'id',
+      'location_id as locationId',
+      'day',
+      'time',
+      'name',
+      'description'
+    )
+    .where('e.id', eventId)
+    .first()
 }
 
 export async function addNewEvent(newEvent: object) {
@@ -48,4 +47,22 @@ export async function addNewEvent(newEvent: object) {
 
 export async function deleteEvent(eventId: number) {
   return db('events').where('id', eventId).delete()
+}
+
+// LOCATIONS
+export async function getAllLocations() {
+  // TODO: use knex to get the real location data from the database
+  return (await db('locations as l').select(
+    'l.id',
+    'l.name',
+    'l.description'
+  )) as Location[]
+}
+
+export async function getLocationById(id: number) {
+  return (await db('locations as l').where('l.id', id).first()) as Location
+}
+
+export async function updateLocation(location: Location) {
+  return await db('locations as l').where('l.id', location.id).update(location)
 }
