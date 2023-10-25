@@ -53,3 +53,17 @@ export async function editEvent(event: Event) {
 export async function deleteEvent(id: number) {
   return await db('events').where('events.id', id).del()
 }
+
+export async function getEventById(id: number) {
+  return await db('events')
+    .where('events.id', id)
+    .select(
+      'id',
+      'events.location_id as locationId',
+      'day',
+      'time',
+      'name',
+      'description'
+    )
+    .first()
+}
