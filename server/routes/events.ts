@@ -27,10 +27,16 @@ router.get('/add/:day', async (req, res) => {
   //   },
   // ]
 
-  const locations = await db.getAllLocations()
+  // const locations = await db.getAllLocations()
 
-  const viewData = { locations, days, day }
-  res.render('addEvent', viewData)
+  // const viewData = { locations, days, day }
+  // res.render('addEvent', viewData)
+  // eslint-disable-next-line promise/catch-or-return
+  db.getAllLocations()
+  .then((locations) => {
+    const viewData = { locations, days, day }
+    res.render('addEvent', viewData)
+  })
 })
 
 // POST /events/add
