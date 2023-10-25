@@ -6,24 +6,23 @@ const router = express.Router()
 
 // GET /locations
 router.get('/', async (req, res) => {
-  // Done: Replace this with all of the locations in the database
+  // DONE: Replace this with all of the locations in the database
   const locations = await db.getAllLocations()
   const viewData = { locations }
   res.render('showLocations', viewData)
 })
 
 // GET /locations/4/edit
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async (req, res) => {
   const id = Number(req.params.id)
-
   // TODO: Get the location based on its id and replace this viewData
-  const viewData = {
-    id: id,
-    name: 'TangleStage',
-    description:
-      'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
-  }
-
+  // const viewData = {
+  //   id: id,
+  //   name: 'TangleStage',
+  //   description:
+  //     'Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip. Not the biggest stage, but perhaps the most hip.',
+  // }
+  const viewData = await db.getLocationById(id)
   res.render('editLocation', viewData)
 })
 
@@ -31,6 +30,7 @@ router.get('/:id/edit', (req, res) => {
 router.post('/edit', (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
   // const { id, name, description } = req.body
+  console.log(req.body)
 
   // TODO: Update the location in the database based on its id
 
