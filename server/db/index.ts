@@ -30,14 +30,14 @@ export async function getEventsByDay(day: string) {
 }
 
 export async function getLocationById(id: number) {
-  return await db('locations')
+  return (await db('locations')
     .select(
       'locations.id as id',
       'locations.name as name',
       'locations.description as description'
     )
     .where('locations.id', id)
-    .first()
+    .first()) as Location
 }
 
 export async function updateLocation(updatedLocation: Location) {
