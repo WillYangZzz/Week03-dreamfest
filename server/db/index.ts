@@ -11,7 +11,6 @@ const config = knexFile[environment]
 export const db = knex(config)
 
 // EVENTS
-
 export async function getEventsByDay(day: string) {
   return (await db('events as e')
     .where('e.day', day)
@@ -68,7 +67,6 @@ export async function deleteEvent(eventId: number) {
 
 // LOCATIONS
 export async function getAllLocations() {
-  // TODO: use knex to get the real location data from the database
   return (await db('locations').select(
     'id',
     'name',
