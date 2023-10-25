@@ -27,7 +27,7 @@ router.get('/add/:day', async (req, res) => {
   //   },
   // ]
 
-  const locations = await db.getAllLocationsForAddEvent()
+  const locations = await db.getAllLocations()
 
   const viewData = { locations, days, day }
   res.render('addEvent', viewData)
