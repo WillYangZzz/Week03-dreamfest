@@ -59,3 +59,7 @@ export async function addNewEvent(event: EventData) {
     location_id: Number(event.locationId),
   })
 }
+
+export async function deleteEvent(id: number) {
+  await db('events').where('events.id', id).del()
+}

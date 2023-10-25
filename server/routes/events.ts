@@ -39,7 +39,7 @@ router.post('/add', async (req, res) => {
   // const { name, description, time, locationId } = req.body
   const day = validateDay(req.body.day)
 
-  // TODO: Add the event to the database and then redirect
+  // DONE: Add the event to the database and then redirect
   // const day = 'friday' // TODO: Remove this line
 
   // await for db.addNewEvent not needed???
@@ -50,12 +50,13 @@ router.post('/add', async (req, res) => {
 
 // POST /events/delete
 router.post('/delete', (req, res) => {
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
+  const id = Number(req.body.id)
+  const day = validateDay(req.body.day)
 
   // TODO: Delete the event from the database using its id
 
-  const day = 'friday' // TODO: Remove this line
+  // const day = 'friday' // TODO: Remove this line
+  db.deleteEvent(id)
 
   res.redirect(`/schedule/${day}`)
 })
