@@ -43,3 +43,7 @@ export async function updateLocation(id: number, updatedLocation: object) {
     .where('locations.id', id)
     .update(updatedLocation)
 }
+
+export async function addNewEvent(newEvent: object) {
+  return await connection('events').insert(newEvent)
+}

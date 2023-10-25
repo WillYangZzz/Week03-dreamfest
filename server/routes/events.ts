@@ -34,14 +34,22 @@ router.get('/add/:day', async (req, res) => {
 })
 
 // POST /events/add
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
   // const { name, description, time, locationId } = req.body
-  // const day = validateDay(req.body.day)
+  const day = validateDay(req.body.day)
 
   // TODO: Add the event to the database and then redirect
 
-  const day = 'friday' // TODO: Remove this line
+  // const day = 'friday' // TODO: Remove this line
+  const newEvent = {
+    location_id: req.body.locationId,
+    day: req.body.day,
+    time: req.body.time,
+    name: req.body.name,
+    description: req.body.description,
+  }
+  await db.addNewEvent(newEvent)
 
   res.redirect(`/schedule/${day}`)
 })
