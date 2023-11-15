@@ -1,7 +1,5 @@
 import knexFile from './knexfile.js'
 import knex from 'knex'
-import type { Location, LocationData } from '../../models/Location.ts'
-import type { Event, EventData, EventWithLocation } from '../../models/Event.ts'
 
 type Environment = 'production' | 'test' | 'development'
 
@@ -11,11 +9,8 @@ const config = knexFile[environment]
 export const connection = knex(config)
 
 export async function getAllLocations() {
-  // TODO: use knex to get the real location data from the database
   return await connection('locations').select()
 }
-
-// TODO: write some more database functions
 
 export async function getEventByDay(day: string) {
   return await connection('events')
@@ -46,6 +41,18 @@ export async function updateLocation(id: number, updatedLocation: object) {
 
 export async function addNewEvent(newEvent: object) {
   return await connection('events').insert(newEvent)
+}
+
+interface EventData {
+  location_id: number
+  day: string
+  time: string
+  name: string
+  description: string
+}
+
+export async function updateEvent(id: number, updatedEvent: EventData) {
+  return await connection('events').where('id', id).update(updatedEvent)
 }
 
 export async function deleteEvent(id: number) {

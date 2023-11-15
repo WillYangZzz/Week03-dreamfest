@@ -15,25 +15,8 @@ router.get('/add/:day', async (req, res) => {
     selected: eventDay === day ? 'selected' : '',
   }))
 
-  // TODO: Replace this with all of the locations in the database
-  // const locations = [
-  //   {
-  //     id: 1,
-  //     name: 'TangleStage',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Yella Yurt',
-  //   },
-  // ]
-
-  // const locations = await db.getAllLocations()
-
-  // const viewData = { locations, days, day }
-  // res.render('addEvent', viewData)
   // eslint-disable-next-line promise/catch-or-return
-  db.getAllLocations()
-  .then((locations) => {
+  db.getAllLocations().then((locations) => {
     const viewData = { locations, days, day }
     res.render('addEvent', viewData)
   })
@@ -41,13 +24,8 @@ router.get('/add/:day', async (req, res) => {
 
 // POST /events/add
 router.post('/add', async (req, res) => {
-  // ASSISTANCE: So you know what's being posted ;)
-  // const { name, description, time, locationId } = req.body
   const day = validateDay(req.body.day)
 
-  // TODO: Add the event to the database and then redirect
-
-  // const day = 'friday' // TODO: Remove this line
   const newEvent = {
     location_id: req.body.locationId,
     day: req.body.day,
@@ -65,9 +43,6 @@ router.post('/delete', async (req, res) => {
   const id = Number(req.body.id)
   const day = validateDay(req.body.day)
 
-  // TODO: Delete the event from the database using its id
-
-  // const day = 'friday' // TODO: Remove this line
   await db.deleteEvent(id)
 
   res.redirect(`/schedule/${day}`)
@@ -77,30 +52,7 @@ router.post('/delete', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   const id = Number(req.params.id)
 
-  // TODO: Replace event below with the event from the database using its id
-  // NOTE: It should have the same shape as this one
-  // const event = {
-  //   id: id,
-  //   locationId: 1,
-  //   day: 'friday',
-  //   time: '2pm - 3pm',
-  //   name: 'Slushie Apocalypse I',
-  //   description:
-  //     'This is totally a description of this really awesome event that will be taking place during this festival at the Yella Yurt. Be sure to not miss the free slushies cause they are rad!',
-  // }
-
   const event = await db.getEventById(id)
-
-  // TODO: Replace locations below with all of the locations from the database
-  // NOTE: The objects should have the same shape as these.
-  // The selected property should have a value of
-  // either 'selected' or '' based on event.locationId above.
-  // const locations = [
-  //   { id: 1, name: 'TangleStage', selected: '' },
-  //   { id: 2, name: 'Yella Yurt', selected: 'selected' },
-  //   { id: 3, name: 'Puffy Paddock', selected: '' },
-  //   { id: 4, name: 'Kombucha Karavan', selected: '' },
-  // ]
 
   const allLocations = await db.getAllLocations()
   const locations = allLocations.map(function (item) {
@@ -109,9 +61,7 @@ router.get('/:id/edit', async (req, res) => {
       selected: event.locationId === item.id ? 'selected' : '',
     }
   })
-  // console.log(await db.getAllLocations())
 
-  // This is done for you with an array of days imported from the helpers file
   const days = eventDays.map((eventDay) => ({
     value: eventDay,
     name: capitalise(eventDay),
@@ -123,16 +73,18 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // POST /events/edit
-router.post('/edit', (req, res) => {
-  // ASSISTANCE: So you know what's being posted ;)
-  // const { name, description, time } = req.body
-  // const id = Number(req.body.id)
-  // const day = validateDay(req.body.day)
-  // const locationId = Number(req.body.locationId)
+router.post('/edit', async (req, res) => {
+  const day = validateDay(req.body.day)
+  const eventId = req.body.id
 
-  // TODO: Update the event in the database using the identifiers created above
-
-  const day = 'friday' // TODO: Remove this line
+  const updatedEvent = {
+    location_id: req.body.locationId,
+    day: req.body.day,
+    time: req.body.time,
+    name: req.body.name,
+    description: req.body.description,
+  }
+  await db.updateEvent(eventId, updatedEvent)
 
   res.redirect(`/schedule/${day}`)
 })
