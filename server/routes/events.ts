@@ -15,7 +15,7 @@ router.get('/add/:day', async (req, res) => {
     selected: eventDay === day ? 'selected' : '',
   }))
 
-  const locations = await db.getAllLocations()
+  const locations = await db.getLocationNames()
 
   const viewData = { locations, days, day }
   res.render('addEvent', viewData)
@@ -47,10 +47,8 @@ router.get('/:id/edit', async (req, res) => {
   const id = Number(req.params.id)
 
   const event = await db.getEventById(id)
-  console.log(event)
 
-  const locationsData = await db.getAllLocations()
-
+  const locationsData = await db.getLocationNames()
   const locations = locationsData.map((location) => {
     return {
       ...location,

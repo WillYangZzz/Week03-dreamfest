@@ -1,6 +1,6 @@
 import knexFile from './knexfile.js'
 import knex from 'knex'
-import type { Location, LocationData } from '../../models/Location.ts'
+import type { Location, LocationName } from '../../models/Location.ts'
 import type { Event, EventData, EventWithLocation } from '../../models/Event.ts'
 
 type Environment = 'production' | 'test' | 'development'
@@ -73,6 +73,11 @@ export async function getAllLocations() {
     'name',
     'description'
   )) as Location[]
+}
+
+// used for the location dropdown options
+export async function getLocationNames() {
+  return (await db('locations').select('id', 'name')) as LocationName[]
 }
 
 export async function getLocationById(id: number) {
