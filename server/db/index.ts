@@ -1,7 +1,7 @@
 import knexFile from './knexfile.js'
 import knex from 'knex'
-import type { Location, LocationData } from '../../models/Location.ts'
-import type { Event, EventData, EventWithLocation } from '../../models/Event.ts'
+import type { Location, LocationWithDesc } from '../../models/Location.ts'
+import type { EventData } from '../../models/Event.ts'
 
 type Environment = 'production' | 'test' | 'development'
 
@@ -15,9 +15,16 @@ export async function getAllLocations() {
 
   return (await db('locations').select(
     'id',
+    'name as locationName'
+  )) as Location[]
+}
+
+export async function getAllLocationsWithDesc() {
+  return (await db('locations').select(
+    'id',
     'name as locationName',
     'description'
-  )) as Location[]
+  )) as LocationWithDesc[]
 }
 
 // TODO: write some more database functions

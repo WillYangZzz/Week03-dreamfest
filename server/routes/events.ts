@@ -3,8 +3,6 @@ import express from 'express'
 import { eventDays, capitalise, validateDay } from './helpers.ts'
 import * as db from '../db/index.ts'
 
-import type { Location, LocationData } from '../../models/Location.ts'
-
 const router = express.Router()
 export default router
 
@@ -46,7 +44,7 @@ router.post('/delete', async (req, res) => {
   // TODO: Delete the event from the database using its id
 
   // const day = 'friday' // TODO: Remove this line
-  const deleteEvent = await db.deleteEvent(id)
+  await db.deleteEvent(id)
 
   res.redirect(`/schedule/${day}`)
 })
@@ -66,7 +64,7 @@ router.get('/:id/edit', async (req, res) => {
   const locations = allLocations.map((location) => {
     return {
       id: location.id,
-      name: location.locationName,
+      name: location.name,
       selected: location.id === event.locationId ? 'selected' : '',
     }
   })

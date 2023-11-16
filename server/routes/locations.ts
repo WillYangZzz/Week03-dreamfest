@@ -1,13 +1,12 @@
 import express from 'express'
 
 import * as db from '../db/index.ts'
-import type { Location, LocationData } from '../../models/Location.ts'
 
 const router = express.Router()
 
 // GET /locations
 router.get('/', async (req, res) => {
-  const locations = await db.getAllLocations()
+  const locations = await db.getAllLocationsWithDesc()
 
   const viewData = { locations }
 
