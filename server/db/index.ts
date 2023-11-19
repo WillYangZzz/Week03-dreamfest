@@ -1,8 +1,7 @@
 import knexFile from './knexfile.js'
 import knex from 'knex'
-import type { Location, LocationData } from '../../models/Location.ts'
-import type { Event, EventData, EventWithLocation } from '../../models/Event.ts'
-import { logDOM } from '@testing-library/dom'
+import type { Location } from '../../models/Location.ts'
+import type { EventData } from '../../models/Event.ts'
 
 type Environment = 'production' | 'test' | 'development'
 
