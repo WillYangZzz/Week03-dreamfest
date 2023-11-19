@@ -11,19 +11,24 @@ const config = knexFile[environment]
 
 export const db = knex(config)
 
-// interface Location {
-//   id: number
-//   name: string
-//   description: string
-// }
+interface LocationOptional {
+  id: number
+  name: string
+  description?: string
+}
 
 export async function getAllLocations() {
+  // TODO: use knex to get the real location data from the database
+  return (await db('locations').select('id', 'name')) as LocationOptional[]
+}
+// full location info with description
+export async function getAllLocationsWithDesc() {
   // TODO: use knex to get the real location data from the database
   return (await db('locations').select(
     'id',
     'name',
     'description'
-  )) as Location[]
+  )) as LocationOptional[]
 }
 
 // TODO: write some more database functions
@@ -55,10 +60,6 @@ export async function updateLocation(updatedLocation: Location) {
     name: updatedLocation.name,
     description: updatedLocation.description,
   })
-}
-// returns an array of objects fo all locations - returns only id and name
-export async function getAllLocationsNameAndIdOnly() {
-  return (await db('locations').select('id', 'name')) as Location[]
 }
 
 interface NewEvent {

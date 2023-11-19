@@ -24,9 +24,8 @@ router.get('/', async (req, res) => {
   // const viewData = { locations }
   // res.render('showLocations', viewData)
 
-  const locationArray = await db.getAllLocations()
+  const locationArray = await db.getAllLocationsWithDesc()
   const viewLocation = { locations: locationArray }
-  // console.log(viewLocation)
   res.render('showLocations', viewLocation)
 })
 

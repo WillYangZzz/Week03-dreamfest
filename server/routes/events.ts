@@ -27,7 +27,7 @@ router.get('/add/:day', async (req, res) => {
   //   },
   // ]
 
-  const locations = await db.getAllLocationsNameAndIdOnly() // this line replaces the above location array of objects
+  const locations = await db.getAllLocations() // this line replaces the above location array of objects
   const viewData = { locations, days, day }
   res.render('addEvent', viewData)
 })
