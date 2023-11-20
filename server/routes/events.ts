@@ -26,7 +26,7 @@ router.get('/add/:day', async (req, res) => {
 // POST /events/add
 router.post('/add', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
-  const { name, description, time, locationId } = req.body
+  // const { name, description, time, locationId } = req.body
   const day = validateDay(req.body.day)
   const event = req.body
 
@@ -88,7 +88,7 @@ router.post('/edit', async (req, res) => {
 
   const editEvent = {
     id,
-    location_id: locationId,
+    locationId,
     day,
     time,
     name,

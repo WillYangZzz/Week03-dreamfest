@@ -10,7 +10,8 @@
     "dev": "tsx watch server/index.ts",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "test": "vitest",
-    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
+    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
   "author": "Dev Academy Aotearoa",
   "license": "ISC",
@@ -31,6 +32,7 @@
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
     "knex": "^2.5.1",
+    "sharp": "^0.32.6",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {

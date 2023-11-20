@@ -27,7 +27,6 @@ router.get('/:id/edit', async (req, res) => {
 // POST /locations/edit
 router.post('/edit', async (req, res) => {
   // ASSISTANCE: So you know what's being posted ;)
-  const { id, name, description } = req.body
 
   const location = req.body
 
