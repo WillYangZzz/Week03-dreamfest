@@ -44,7 +44,6 @@ router.post('/delete', async (req, res) => {
   // TODO: Delete the event from the database using its id
 
   await db.deleteEvent(id)
-  console.log(id)
 
   res.redirect(`/schedule/${day}`)
 })
