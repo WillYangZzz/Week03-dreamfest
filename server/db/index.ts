@@ -27,6 +27,11 @@ export async function getLocationById(id: number) {
   return (await db('locations as l').where('l.id', id).first()) as Location[]
 }
 
+//update Location
+export async function updateLocation(newLocation: Location) {
+  await db('locations').where('id', newLocation.id).update(newLocation)
+}
+
 //Event
 export async function getEventsByDay(day: string) {
   return (await db('events as e')
