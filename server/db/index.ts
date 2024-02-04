@@ -47,3 +47,15 @@ export async function getEventsByDay(day: string) {
       'l.name as locationName'
     )) as EventWithLocation[]
 }
+
+export async function addNewEvent(newEvent: EventData) {
+  const { locationId, day, time, description, name } = newEvent
+  const snakeNewEvent = {
+    location_id: locationId,
+    day,
+    time,
+    name,
+    description,
+  }
+  await db('events').insert(snakeNewEvent)
+}
