@@ -1,3 +1,7 @@
+export interface LocationName {
+  id: number
+  name: string
+}
 export interface LocationData {
   name: string
   description: string
