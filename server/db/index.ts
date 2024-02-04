@@ -22,6 +22,11 @@ export async function getAllLocations() {
 
 // TODO: write some more database functions
 
+//Location
+export async function getLocationById(id: number) {
+  return (await db('locations as l').where('l.id', id).first()) as Location[]
+}
+
 //Event
 export async function getEventsByDay(day: string) {
   return (await db('events as e')
