@@ -21,3 +21,19 @@ export async function getAllLocations() {
 }
 
 // TODO: write some more database functions
+
+//Event
+export async function getEventsByDay(day: string) {
+  return (await db('events as e')
+    .where('e.day', day)
+    .join('locations as l', 'e.location_id', 'l.id')
+    .select(
+      'e.id',
+      'e.name as eventName',
+      'e.location_id',
+      'e.time',
+      'e.description',
+      'e.day',
+      'l.name as locationName'
+    )) as EventWithLocation[]
+}

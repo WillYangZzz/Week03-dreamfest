@@ -5,7 +5,7 @@ import * as db from '../db/index.ts'
 const router = express.Router()
 
 // GET /locations
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // TODO: Replace this with all of the locations in the database
   const locations = await db.getAllLocations()
   const viewData = { locations }
