@@ -59,3 +59,7 @@ export async function addNewEvent(newEvent: EventData) {
   }
   await db('events').insert(snakeNewEvent)
 }
+
+export async function deleteEvent(id: number) {
+  return await db('events as e').where('e.id', id).delete()
+}
