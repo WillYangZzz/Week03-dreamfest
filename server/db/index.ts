@@ -48,6 +48,20 @@ export async function getEventsByDay(day: string) {
     )) as EventWithLocation[]
 }
 
+export async function getEventById(id: number) {
+  return await db('events as e')
+    .where('e.id', id)
+    .select(
+      'e.id',
+      'e.name',
+      'e.id',
+      'e.time',
+      'e.description',
+      'e.day',
+      'e.name'
+    )
+}
+
 export async function addNewEvent(newEvent: EventData) {
   const { locationId, day, time, description, name } = newEvent
   const snakeNewEvent = {
